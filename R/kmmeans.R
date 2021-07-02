@@ -48,7 +48,7 @@ kmmeans <- function(
 	stopifnot(is.data.frame(data))
 	stopifnot(!is.na(as.integer(K) && as.integer(K)>0) & as.integer(K)>0)
 	stopifnot(!is.na(as.integer(n.init)) & as.integer(n.init)>0)
-        stopifnot(!is.na(as.integer(kmmns.iter)) & as.integer(kmmns.iter)>0)
+        stopifnot(!is.na(as.integer(kmmns.iter)) & as.integer(kmmns.iter)>=0)
 
 	if (!is.loaded("kmmeanspp_r", PACKAGE="kmmeans"))
 		dyn.load("src/kmmeans.so")

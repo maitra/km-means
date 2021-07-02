@@ -31,6 +31,7 @@ d$texture <- log10(d$texture)
 d$size <- IHS(d$size, theta=20)
 d$Me_1 <- IHS(d$Me_1, theta=20)
 d$Me_2 <- IHS(d$Me_2, theta=20)
+scale(d[,3:7]) -> d[,3:7]
 
 ret <- kmmeans(d[, 3:7], 2, 100, 10)
 print(ret)
