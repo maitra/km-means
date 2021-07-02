@@ -1,0 +1,4 @@
+^\.git
+^scripts
+^src/.*\.o$
+^src/.*\.so$
