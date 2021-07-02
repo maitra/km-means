@@ -16,23 +16,22 @@
 #
 #' @keywords datasets
 
-ihs <- function(x, theta=0)
-{
-	if (abs(theta) < 1e-3) {
-		x
-	} else {
-		asinh(theta * x) / theta
-	}
+
+IHS <- function(y, theta, eps = 1e-4) {
+    if (theta < eps)
+        y else asinh(theta * y)/theta
 }
 
 library(kmmeans)
 d <- read.table("inst/extdata/sdss-all-c.data", sep=",", na.strings="?")
-colnames(d) <- c('id', 'class', 'brightness', 'texture', 'size', 'shape1', 'shape2')
+colnames(d) <- c('id', 'class', 'brightness', 'texture', 'size', 'Me_1', 'Me_2')
+
 d$brightness <- log10(d$brightness)
 d$texture <- log10(d$texture)
-d$size <- ihs(d$size, theta=10)
-d$shape1 <- ihs(d$shape1, theta=10)
-d$shape2 <- ihs(d$shape2, theta=10)
-ret <- kmmeans(d[, 3:7], 2, 100)
+d$size <- IHS(d$size, theta=20)
+d$Me_1 <- IHS(d$Me_1, theta=20)
+d$Me_2 <- IHS(d$Me_2, theta=20)
+
+ret <- kmmeans(d[, 3:7], 2, 100, 10)
 print(ret)
 table(ret$partition, d[,2])
