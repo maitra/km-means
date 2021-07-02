@@ -79,7 +79,7 @@ SEXP kmmeanspp_r(	SEXP data_r,
 
 	for (int i = 0; i < n; ++i)
 		for (int j = 0; j < p; ++j) {
-			int l = i * p + j;
+			int l = j * n + i;
 
 			/* we intentionally represent missing as infinite */
 			if (ISNA(dptr[l]))

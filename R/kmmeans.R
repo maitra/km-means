@@ -48,8 +48,7 @@ kmmeans <- function(	data,
 	if (!is.loaded("kmmeanspp_r", PACKAGE="kmmeans"))
 		dyn.load("src/kmmeans.so")
 
-	data <- as.matrix(data)
-	out <- .Call("kmmeanspp_r", data, as.integer(K), as.integer(n.init))
+	out <- .Call("kmmeanspp_r", as.matrix(data), as.integer(K), as.integer(n.init))
 
 	return(out)
 }# kmmeans
