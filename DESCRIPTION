@@ -1,0 +1,12 @@
+Package: kmmeans
+Type: Package
+Title: K-means for observations with missing data
+Version: 1.0
+Date: 2021-07-01
+Authors@R: c(person("Andrew", "Lithio", role=c("aut","cre"),
+	email="lithio..."))
+Author: Andrew Lithio, [aut, cre] <https://...>),
+Maintainer: Andrew Lithio <lithio@s.com>
+Description: K-means for observations with missing data.
+License: What license is it under?
+RoxygenNote: 7.1.1
