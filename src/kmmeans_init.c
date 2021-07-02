@@ -4,10 +4,10 @@
 #include <R_ext/Rdynload.h>
 
 /* .Call calls */
-extern SEXP kmmeanspp_r(SEXP, SEXP, SEXP);
+extern SEXP kmmeanspp_r(SEXP, SEXP, SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
-    {"kmmeanspp_r", (DL_FUNC) &kmmeanspp_r, 3},
+    {"kmmeanspp_r", (DL_FUNC) &kmmeanspp_r, 4},
     {NULL, NULL, 0}
 };
 

@@ -34,9 +34,11 @@ char const *return_names[NUMBER_SLOTS] = {
  */
 SEXP kmmeanspp_r(	SEXP data_r,
 			SEXP K_r,
-			SEXP ninit_r)
+			SEXP ninit_r,
+			SEXP kmmnsiter_r
+	)
 {
-	int K, n_init, nprotect = 0, n, p, **data1, *iptr;
+	int K, n_init, kmmns_iter, nprotect = 0, n, p, **data1, *iptr;
 	double *dptr, **data, **data2;
 	SEXP data_c = NULL;
 	SEXP dim = getAttrib(data_r, R_DimSymbol);
@@ -56,7 +58,6 @@ SEXP kmmeanspp_r(	SEXP data_r,
 		dptr = REAL(data_r);
 	}
 
-
 	if (!isInteger(K_r)) {
 		Rprintf("Invalid type for number of clusters.\n");
 		return R_NilValue;
@@ -65,11 +66,16 @@ SEXP kmmeanspp_r(	SEXP data_r,
 		Rprintf("Invalid type for number of initializations.\n");
 		return R_NilValue;
 	}
+	if (!isInteger(kmmnsiter_r)) {
+		Rprintf("Invalid type for number of kmmeans iterations.\n");
+		return R_NilValue;
+ 	}
 
 	GetRNGstate();
 
 	K = * INTEGER(K_r);
 	n_init = * INTEGER(ninit_r);
+ 	kmmns_iter = * INTEGER(kmmnsiter_r);
 	n = INTEGER(dim)[0];
 	p = INTEGER(dim)[1];
 
@@ -88,8 +94,7 @@ SEXP kmmeanspp_r(	SEXP data_r,
 				data[i][j] = dptr[l];
 		}
 	
-	double tss = repkmmeanspp(data, K, n, p, data1, data2, n_init);
-
+	double tss = repkmmeanspp(data, K, n, p, data1, data2, n_init, kmmns_iter);
 	PROTECT(return_list = allocVector(VECSXP, NUMBER_SLOTS));
 	++nprotect;
 

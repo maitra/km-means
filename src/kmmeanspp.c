@@ -16,7 +16,7 @@ void clustmeans(double **clust, double **iv, int **obs, int k, int n, int m);
 void kplusplus(double **clust, double **iv, int k, int n, int m);
 void qtrans(double **clust, double **dat, int **obs, double **iv, int k, int n, int m,int *ncp,int *itran,int *indx,double *d);
 void otrans(double **clust, double **dat, int **obs, double **iv, int k, int n, int m,int *ncp,int *itran,int *live,int *indx,double *d);
-int kmeans2(double **dat,double **clust, int **obs, double *tss, int k, int m, int n, int numiter);
+int kmeans2(double **dat,double **clust, int **obs, double *tss, int k, int m, int n, int numiter, int kmnsiter);
 
 /*
   Calculates values for m-by-3n inner variance matrix as described in report. First n columns have IV value for each dimension of each observation (n_ij*sum(y_ij^2)-sum(y_ij)^2), the second n columns have the sum of recorded values in each dimension for each observation (sum(y_ij)), and the third n columns have sum of recorded values squared (sum(y_ij^2))
@@ -440,7 +440,7 @@ void kplusplus(double **clust, double **iv, int k, int n, int m)
 	FREE_VECTOR(dists);
 }
 
-int kmeans2(double **dat, double **clust, int **obs, double *tss, int k, int m, int n, int numiter)
+int kmeans2(double **dat, double **clust, int **obs, double *tss, int k, int m, int n, int numiter, int iter)
 {
 /*
   K-Means Algorithm
@@ -453,7 +453,6 @@ int kmeans2(double **dat, double **clust, int **obs, double *tss, int k, int m, 
   n: number of dimensions
   m: total number of measurements
   *tss: pointer to holder for total sum of squares
-  iter: maximum number of iterations
 
   Working Variables:
   **iv: matrix of within sum of squares and sums
@@ -466,9 +465,8 @@ int kmeans2(double **dat, double **clust, int **obs, double *tss, int k, int m, 
   3 Input Error
 */
 
-
 	double **iv, mydist, mydist2, newdist, newtss, **newclust, *d;
-	int i, j, initruns, iter=100, ERR=0, **newobs, *ncp, *itran, *live, indx, *ind/*,code*/, jj;
+	int i, j, initruns, ERR=0, **newobs, *ncp, *itran, *live, indx, *ind/*,code*/, jj;
 
 	if (k <= 1 || m <= k){
 		ERR = 3;
@@ -635,7 +633,7 @@ int kmeans2(double **dat, double **clust, int **obs, double *tss, int k, int m, 
  * @param clust		cluster means
  * @param numiter	number of times to initialize (ignore name)
  */
-double repkmmeanspp(double **dat, int k, int m, int n, int **obs, double **clust, int numiter)
+double repkmmeanspp(double **dat, int k, int m, int n, int **obs, double **clust, int numiter, int iter)
 {
 	double tss = INFINITY;
 	int  i, j, ERR, numindim;
@@ -662,7 +660,7 @@ double repkmmeanspp(double **dat, int k, int m, int n, int **obs, double **clust
 				if (isfinite(dat[i][j]))
 					tss = tss + (dat[i][j] - clust[0][j]) * (dat[i][j] - clust[0][j]);
 	}else{
-		ERR = kmeans2(dat, clust, obs, &tss, k, m, n, numiter);
+		ERR = kmeans2(dat, clust, obs, &tss, k, m, n, numiter, iter);
 		if (ERR != 0)
 #ifdef MATHLIB_STANDALONE
 			printf("Error code: %d\n", ERR);
