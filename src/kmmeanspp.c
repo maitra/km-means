@@ -5,7 +5,7 @@
 #include <math.h>
 #include <float.h>
 #include <R_ext/Print.h> 
-#include <R/Rmath.h>
+#include <Rmath.h>
 #include <time.h>
 
 #include "array.h"
