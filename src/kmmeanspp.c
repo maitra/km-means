@@ -636,7 +636,8 @@ int kmeans2(double **dat, double **clust, int **obs, double *tss, int k, int m, 
 double repkmmeanspp(double **dat, int k, int m, int n, int **obs, double **clust, int numiter, int iter)
 {
 	double tss = INFINITY;
-	int  i, j, ERR, numindim;
+	int  i, j, numindim;
+	//int ERR;
 
 	/*Call to kmeans function only necessary if K>1*/
 	if (k == 1){			
@@ -659,8 +660,8 @@ double repkmmeanspp(double **dat, int k, int m, int n, int **obs, double **clust
 			for (j=0; j<n; j++)
 				if (isfinite(dat[i][j]))
 					tss = tss + (dat[i][j] - clust[0][j]) * (dat[i][j] - clust[0][j]);
-	}else{
-		ERR = kmeans2(dat, clust, obs, &tss, k, m, n, numiter, iter);
+//	}else{
+//		ERR = kmeans2(dat, clust, obs, &tss, k, m, n, numiter, iter);
 //		if (ERR != 0)
 // #ifdef MATHLIB_STANDALONE
 //			printf("Error code: %d\n", ERR);
