@@ -661,12 +661,12 @@ double repkmmeanspp(double **dat, int k, int m, int n, int **obs, double **clust
 					tss = tss + (dat[i][j] - clust[0][j]) * (dat[i][j] - clust[0][j]);
 	}else{
 		ERR = kmeans2(dat, clust, obs, &tss, k, m, n, numiter, iter);
-		if (ERR != 0)
-#ifdef MATHLIB_STANDALONE
+//		if (ERR != 0)
+// #ifdef MATHLIB_STANDALONE
 //			printf("Error code: %d\n", ERR);
-#else
+// #else
 //			Rprintf("Error code: %d\n", ERR);
-#endif
+// #endif
 	}
 	return tss;
 }
