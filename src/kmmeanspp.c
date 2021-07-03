@@ -660,8 +660,8 @@ double repkmmeanspp(double **dat, int k, int m, int n, int **obs, double **clust
 			for (j=0; j<n; j++)
 				if (isfinite(dat[i][j]))
 					tss = tss + (dat[i][j] - clust[0][j]) * (dat[i][j] - clust[0][j]);
-//	}else{
-//		ERR = kmeans2(dat, clust, obs, &tss, k, m, n, numiter, iter);
+	}else{
+		kmeans2(dat, clust, obs, &tss, k, m, n, numiter, iter);
 //		if (ERR != 0)
 // #ifdef MATHLIB_STANDALONE
 //			printf("Error code: %d\n", ERR);
