@@ -554,9 +554,9 @@ int kmeans2(double **dat, double **clust, int **obs, double *tss, int k, int m, 
 			if (newclust[i][2*n] == 0){
 				ERR = 1;
 #ifdef MATHLIB_STANDALONE
-				printf("A cluster is empty after initial assignment. You may want to try a new initialization\n");
+				//				printf("A cluster is empty after initial assignment. You may want to try a new initialization\n");
 #else
-				Rprintf("A cluster is empty after initial assignment. You may want to try a new initialization\n");
+				// Rprintf("A cluster is empty after initial assignment. You may want to try a new initialization\n");
 #endif
 			}
 			/*Mark all clusts as needing to be updated*/
@@ -663,9 +663,9 @@ double repkmmeanspp(double **dat, int k, int m, int n, int **obs, double **clust
 		ERR = kmeans2(dat, clust, obs, &tss, k, m, n, numiter, iter);
 		if (ERR != 0)
 #ifdef MATHLIB_STANDALONE
-			printf("Error code: %d\n", ERR);
+//			printf("Error code: %d\n", ERR);
 #else
-			Rprintf("Error code: %d\n", ERR);
+//			Rprintf("Error code: %d\n", ERR);
 #endif
 	}
 	return tss;
